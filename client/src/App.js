@@ -1,21 +1,16 @@
-import { useEffect } from 'react';
-import useMenuContext from './hooks/use-menu-context';
-import MenuItemAdd from './components/Menu/MenuItemAdd';
-import MenuList from './components/Menu/MenuList';
+import { Route, Routes } from 'react-router-dom'
+import Home from './pages/Home'
+import Admin from './pages/Admin'
 
 function App() {
-
-    const { getMenu } = useMenuContext();
-
-    useEffect(() => {
-        getMenu()
-    }, [])
 
     return (
         <div>
             Pan Resto!
-            <MenuItemAdd />
-            <MenuList />
+            <Routes>
+                <Route path='/' element={<Home />}></Route>
+                <Route path='/admin' element={<Admin />}></Route>
+            </Routes>
         </div>
     );
 }

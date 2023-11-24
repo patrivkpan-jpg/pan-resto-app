@@ -22,3 +22,4 @@ mongoose.connection.on('disconnected', () => {
 });
 
 require('./models/MenuModel')
+require('./models/AdminModel')

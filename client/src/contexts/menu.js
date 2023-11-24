@@ -4,7 +4,7 @@ import axios from 'axios';
 const BASE_URL = 'http://localhost:5000/api/v1/menu';
 const MenuContext = createContext();
 
-function Provider({ children }) {
+function MenuContextProvider({ children }) {
     const [menu, setMenu] = useState([]);
 
     const getMenu = () => {
@@ -20,7 +20,6 @@ function Provider({ children }) {
         axios.post(BASE_URL, {
             name, description, price,
         }).then(function (response) {
-            console.log(response)
             const updatedMenu = [
                 ...menu,
                 response.data.result
@@ -35,7 +34,6 @@ function Provider({ children }) {
         axios.put(BASE_URL, {
             _id, description, price,
         }).then(function (response) {
-            console.log(response.data.result)
             const updatedMenu = menu.map((item) => {
                 if (item._id === _id) {
                     return response.data.result
@@ -51,7 +49,6 @@ function Provider({ children }) {
     const deleteMenuItem = (_id) => {
         axios.delete(`${BASE_URL}/${_id}`)
         .then(function (response) {
-            console.log(response)
             const updatedMenu = menu.filter((item) => {
                 return item._id !== _id;
             })
@@ -76,5 +73,5 @@ function Provider({ children }) {
     )
 }
 
-export { Provider }
+export { MenuContextProvider }
 export default MenuContext;

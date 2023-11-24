@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import MenuItemEdit from './MenuItemEdit';
 import useMenuContext from '../../hooks/use-menu-context'
+import useAdminContext from '../../hooks/use-admin-context';
 
 function MenuItemShow({ item }) {
 
-    console.log(item)
     const [showEditMenu, setShowEditMenu] = useState(false)
 
     const { deleteMenuItem } = useMenuContext();
+
+    const { admin } = useAdminContext();
 
     const hideEditForm = () => {
         setShowEditMenu(false)
@@ -23,12 +25,16 @@ function MenuItemShow({ item }) {
 
     let shownPrice = (item.price) ? <span>₱{item.price}<br /></span> : '';
 
+    let showAdminActions = (admin.username) ? <>
+        <button onClick={handleEditClick}>Edit</button>
+        <button onClick={handleDeleteClick}>Delete</button>
+    </> : '';
+
     let content = <>
         <h3>{item.name}</h3>
         <h4>{item.description}</h4>
         { shownPrice }
-        <button onClick={handleEditClick}>Edit</button>
-        <button onClick={handleDeleteClick}>Delete</button>
+        { showAdminActions }
     </>
 
     if (showEditMenu === true) {
