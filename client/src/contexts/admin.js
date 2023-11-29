@@ -11,16 +11,26 @@ function AdminContextProvider({ children }) {
 
     const [admin, setAdmin] = useState({})
 
+    const getLoginUser = () => {
+        axios.get(BASE_URL, {
+            withCredentials: true
+        })
+        .then(function (response) {
+            console.log('getLoginUser', response.data.result)
+            setAdmin(response.data.result)
+        }).catch(function (error) {
+            console.log('getLoginUser', error)
+            // alert(error.response.data.message)
+        })
+    }
+
     const login = ({ username, password }) => {
-        
         axios.post(`${BASE_URL}/login`, { 
             username, password 
+        }, {
+            withCredentials: true
         }).then(function (response) {
-            const loggedInAdmin = {
-                username: 'panny',
-                level: 1
-            }
-            setAdmin(loggedInAdmin)
+            setAdmin(response.data.result)
             navigate('/')
         }).catch(function (error) {
             alert(error.response.data.message)
@@ -29,6 +39,7 @@ function AdminContextProvider({ children }) {
 
     const valueToShare = {
         admin,
+        getLoginUser,
         login
     }
 

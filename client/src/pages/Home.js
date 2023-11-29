@@ -9,16 +9,21 @@ function Home () {
 
     const { getMenu } = useMenuContext();
 
-    const { admin } = useAdminContext();
+    const { admin, getLoginUser } = useAdminContext();
 
-    console.log(admin)
-
-    const showMenuItemAdd = (admin.username) ? <MenuItemAdd /> : '';
-    const showAdmin = (!admin.username) ? <Link to='/admin'>Admin</Link> : '';
+    useEffect(() => {
+        getLoginUser()
+    }, [])
 
     useEffect(() => {
         getMenu()
     }, [])
+
+    console.log(admin)
+    
+    const showMenuItemAdd = (admin.username) ? <MenuItemAdd /> : '';
+    const showAdmin = (!admin.username) ? <Link to='/admin'>Admin</Link> : '';
+
 
     return (
         <>
