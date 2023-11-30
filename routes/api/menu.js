@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const menuController = require("../../controllers/MenuController");
+const { upload } = require('../../utility/UploadUtility')
 
 /**
  * @method GET
@@ -14,7 +15,7 @@ router.get('/', menuController.getMenu);
  * @access public
  * @endpoint /api/v1/menu/
  **/
-router.post('/', menuController.addMenuItem);
+router.post('/', upload.single('image'), menuController.addMenuItem);
 
 /**
  * @method PUT

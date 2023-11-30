@@ -18,8 +18,6 @@ function Home () {
     useEffect(() => {
         getMenu()
     }, [])
-
-    console.log(admin)
     
     const showMenuItemAdd = (admin.username) ? <MenuItemAdd /> : '';
     const showAdmin = (!admin.username) ? <Link to='/admin'>Admin</Link> : '';

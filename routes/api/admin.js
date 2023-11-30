@@ -17,4 +17,11 @@ router.get('/', adminContrller.getLoginUser);
  **/
 router.post('/login', adminContrller.login);
 
+/**
+ * @method POST
+ * @access public
+ * @endpoint /api/v1/admin/register
+ **/
+router.post('/register', adminContrller.register);
+
 module.exports = router;

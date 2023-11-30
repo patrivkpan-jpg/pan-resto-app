@@ -25,6 +25,10 @@ function MenuItemShow({ item }) {
 
     let shownPrice = (item.price) ? <span>₱{item.price}<br /></span> : '';
 
+    let imagePath = `http://localhost:5000/uploads/images/${item.image}`
+
+    let renderedImage = (item.image) ? <img src={imagePath} width='250' height='250' /> : '';
+
     let showAdminActions = (admin.username) ? <>
         <button onClick={handleEditClick}>Edit</button>
         <button onClick={handleDeleteClick}>Delete</button>
@@ -34,6 +38,7 @@ function MenuItemShow({ item }) {
         <h3>{item.name}</h3>
         <h4>{item.description}</h4>
         { shownPrice }
+        { renderedImage }
         { showAdminActions }
     </>
 

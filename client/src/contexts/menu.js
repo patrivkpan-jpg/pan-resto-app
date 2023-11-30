@@ -16,9 +16,13 @@ function MenuContextProvider({ children }) {
             })
     }
 
-    const addMenuItem = ({ name, description, price }) => {
+    const addMenuItem = ({ name, description, price, image }) => {
         axios.post(BASE_URL, {
-            name, description, price,
+            name, description, price, image
+        },{
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
         }).then(function (response) {
             const updatedMenu = [
                 ...menu,

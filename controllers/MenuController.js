@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
+const fs = require('fs');
+const path = require('path');
 const Menu = mongoose.model('menu');
+
 
 exports.getMenu = async (req, res) => {
     try {
@@ -13,12 +16,13 @@ exports.getMenu = async (req, res) => {
 
 exports.addMenuItem = async (req, res) => {
     try {
-        console.log(req)
         const { name, description, price } = req.body;
+        const { filename } = req.file
         const post = await Menu.create({
             name,
             description,
-            price
+            price,
+            image: filename
         });
         res.status(201).json({ message: 'Successfully added new menu item!', result: post.toJSON() });
     } catch (error) {
@@ -29,7 +33,6 @@ exports.addMenuItem = async (req, res) => {
 
 exports.editMenuItem = async (req, res) => {
     try {
-        console.log(req.body)
         const { _id, description, price } = req.body;
         const updateData = {
             description,
@@ -38,7 +41,6 @@ exports.editMenuItem = async (req, res) => {
         const options = {
             returnDocument: 'after'
         }
-        console.log(_id, updateData)
         const query = Menu.findByIdAndUpdate(_id, updateData, options);
         res.status(201).json({ message: 'Successfully edited menu item!', result: await query.exec() });
     } catch (error) {
@@ -50,6 +52,14 @@ exports.editMenuItem = async (req, res) => {
 exports.deleteMenuItem = async (req, res) => {
     try {
         const { _id } = req.params;
+        const getQuery = Menu.findById(_id);
+        const item = await getQuery.exec();
+        const image = item.image;
+        fs.unlink(path.join(__dirname, `../uploads/images/${image}`), (err) => {
+            if (err) {
+                console.log(err)
+            }
+        })
         const query = Menu.deleteOne({
             _id
         })

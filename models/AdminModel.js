@@ -7,7 +7,8 @@ const adminModel = new Schema(
         username : {
             type: String,
             required: true,
-            immutable: true
+            immutable: true,
+            unique: true
         },
         password : {
             type: String,

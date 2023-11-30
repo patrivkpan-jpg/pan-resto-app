@@ -10,7 +10,8 @@ const menuModel = new Schema(
             immutable: true
         },
         description : String,
-        price : Number
+        price : Number,
+        image: String
     },
     {   
         timestamps: {

@@ -1,4 +1,3 @@
-
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
@@ -9,17 +8,19 @@ require('./db')
 
 const app = express();
 
+app.use(express.static(__dirname));
+
 // CORS Middleware
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
 }));
 
-// express middleware handling the form parsing
-app.use(express.urlencoded({extended: false}));
-
 // express middleware handling the body parsing 
 app.use(express.json());
+
+// express middleware handling the form parsing
+app.use(express.urlencoded({extended: false}));
 
 // mongostore to store express-session
 const store = new MongoStore({

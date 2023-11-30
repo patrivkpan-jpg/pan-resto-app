@@ -6,6 +6,7 @@ function MenuItemAdd() {
     const [name, setName] = useState('');
     const [description, setdescription] = useState('');
     const [price, setprice] = useState('');
+    const [image, setImage] = useState(null);
 
     const { addMenuItem } = useMenuContext();
 
@@ -14,11 +15,13 @@ function MenuItemAdd() {
         addMenuItem({
             name,
             description,
-            price
+            price,
+            image
         })
         setName('')
         setdescription('')
         setprice('')
+        setImage(null)
     }
 
     const onNameInputChange = (event) => {
@@ -33,6 +36,10 @@ function MenuItemAdd() {
         setprice(event.target.value)
     }
 
+    const onImageInputChange = (event) => {
+        setImage(event.target.files[0])
+    }
+
     return (
         <div className='add-menu-item'>
             <form onSubmit={onFormSubmit}>
@@ -43,6 +50,8 @@ function MenuItemAdd() {
                 Description: <input type='text' value={description} onChange={onDescriptionInputChange}></input>
                 <br />
                 Price: <input type='text' value={price} onChange={onPriceInputChange}></input>
+                <br />
+                Image: <input type='file' onChange={onImageInputChange} accept="image/*"></input>
                 <br />
                 <button>Add menu item</button>
             </form>
